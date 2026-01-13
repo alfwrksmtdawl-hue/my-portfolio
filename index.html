@@ -55,6 +55,25 @@ text-decoration:none;
 margin-right:25px;
 font-size:.95rem
 }
+.nav a{
+position:relative;
+padding-bottom:5px;
+}
+
+.nav a::after{
+content:"";
+position:absolute;
+right:0;
+bottom:0;
+width:0;
+height:2px;
+background:var(--gold);
+transition:.4s;
+}
+
+.nav a:hover::after{
+width:100%;
+}
 
 /* HERO */
 .hero{
@@ -182,6 +201,115 @@ color:#666
 .hero h1{font-size:2.8rem}
 .about{grid-template-columns:1fr}
 }
+nav.scrolled{
+background:rgba(5,5,5,0.95);
+box-shadow:0 10px 40px rgba(0,0,0,.6);
+padding:10px 0;
+}
+.cta{
+padding:10px 28px;
+border-radius:30px;
+background:linear-gradient(135deg,var(--gold),#fff1c1);
+color:#000 !important;
+font-weight:700;
+transition:.4s;
+}
+/* ===== LUXURY PORTFOLIO ===== */
+.portfolio {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+}
+
+.portfolio-item {
+    position: relative;
+    border-radius: 26px;
+    overflow: hidden;
+    background: #0a0a0a;
+    box-shadow:
+        0 40px 80px rgba(0,0,0,.8),
+        inset 0 0 0 1px rgba(255,255,255,.05);
+}
+
+/* إضاءة جانبية */
+.portfolio-item::before {
+    content: "";
+    position: absolute;
+    top: -20%;
+    right: -30%;
+    width: 60%;
+    height: 140%;
+    background: linear-gradient(
+        120deg,
+        rgba(255,255,255,0.15),
+        transparent 60%
+    );
+    opacity: 0;
+    transition: .8s;
+}
+
+/* الصورة */
+.portfolio-item img {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    transition: 1s ease;
+    filter: brightness(85%) contrast(105%);
+}
+
+/* تأثير المرور */
+.portfolio-item:hover img {
+    transform: scale(1.08);
+    filter: brightness(100%) contrast(110%);
+}
+
+.portfolio-item:hover::before {
+    opacity: 1;
+}
+.lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(5,5,5,.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.lightbox.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.lightbox img {
+    max-width: 85%;
+    max-height: 85%;
+    border-radius: 20px;
+    box-shadow: 0 50px 120px rgba(0,0,0,.9);
+}
+
+/* ظل داخلي فاخر */
+.portfolio-item::after {
+    content:"";
+    position:absolute;
+    inset:0;
+    background: radial-gradient(
+        circle at bottom,
+        rgba(0,0,0,.6),
+        transparent 60%
+    );
+    pointer-events:none;
+}
+
+.cta:hover{
+transform:translateY(-3px);
+box-shadow:0 15px 40px rgba(207,164,74,.4);
+}
+
+
 </style>
 </head>
 
@@ -190,6 +318,7 @@ color:#666
 <nav>
 <div class="nav">
 <div class="logo">صمم <span>لي</span></div>
+
 <div>
 <a href="#about">من نحن</a>
 <a href="#services">خدماتنا</a>
@@ -280,7 +409,34 @@ color:#666
 </div>
 
 </section>
-
+<section id="portfolio" class="section">
+    <div class="title">
+        <span>PORTFOLIO</span>
+        <h2>معرض الأعمال</h2>
+    </div>
+  
+    <div class="portfolio"></div>
+  </section>
+  
+  <script>
+  const images = [
+    "1.png","2.png","3.png","4.png","5.png","6.jpg","7.png","8.png","9.png",
+    "10.png","11.png","12.png","13.png","14.png","15.png","16.png","17.png",
+    "18.png","19.png","20.jpg","21.jpg","22.jpg","23.jpg","24.jpg","25.png",
+    "26.png","28.jpg","29.png"
+  ];
+  
+  const portfolioDiv = document.querySelector(".portfolio");
+  
+  images.forEach(img => {
+    const item = document.createElement("div");
+    item.classList.add("portfolio-item");
+    item.innerHTML = `<img src="${img}" alt="عمل تصميم فاخر" onclick="openLightbox('${img}')">`;
+    portfolioDiv.appendChild(item);
+  });
+  </script>
+  
+<!-- 
 <section id="portfolio" class="section">
     <div class="title">
         <span>PORTFOLIO</span>
@@ -289,27 +445,80 @@ color:#666
 
     <div class="portfolio">
         <script>
-            for (let i = 1; i <= 15; i++) {
+            for (let i = 1; i <= 28; i++) {
                 document.write(`
-                    <img src="${i}.jpg" alt="عمل تصميم احترافي">
+                    <div class="portfolio-item">
+                        <img src="${i}.jpg" alt="عمل تصميم فاخر" onclick="openLightbox('${i}.jpg')">
+                    </div>
                 `);
             }
         </script>
     </div>
-</section>
+</section> -->
+
 
 
 <section id="contact" class="section contact">
-<div class="title"><span>CONTACT</span><h2>تواصل معنا</h2></div>
-<a href="#"><i class="fab fa-whatsapp"></i> واتساب</a>
-<a href="#"><i class="fab fa-instagram"></i> انستقرام</a>
-<a href="#"><i class="fab fa-telegram"></i> تليجرام</a>
-<a href="tel:+967"><i class="fas fa-phone"></i> اتصال</a>
+    <div class="title">
+        <span>CONTACT</span>
+        <h2>تواصل معنا</h2>
+    </div>
+
+    <p style="max-width:650px;margin:0 auto 40px;color:#9a9a9a;font-size:1.05rem">
+        يسعدنا التواصل معك لمناقشة أفكارك وتحويلها إلى
+        هوية بصرية أنيقة تليق بطموحك.
+    </p>
+
+    <a href="https://wa.me/78500363" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+        واتساب
+    </a>
+
+    <a href="https://t.me/the_boss711" target="_blank">
+        <i class="fab fa-telegram"></i>
+        تليجرام
+    </a>
+
+    <a href="https://www.instagram.com/bo.ss1.1" target="_blank">
+        <i class="fab fa-instagram"></i>
+        إنستقرام
+    </a>
+
+    <a href="tel:78500363">
+        <i class="fas fa-phone"></i>
+        اتصال هاتفي
+    </a>
 </section>
+
 
 <footer>
 © 2026 صمم لي — تصميم يليق بك
 </footer>
-
+<script>
+    const nav = document.querySelector("nav");
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 80) {
+        nav.classList.add("scrolled");
+      } else {
+        nav.classList.remove("scrolled");
+      }
+    });
+    </script>
+    <div class="lightbox" onclick="closeLightbox()">
+        <img id="lightbox-img">
+    </div>
+   
+        
+    <script>
+        function openLightbox(src){
+            document.getElementById("lightbox-img").src = src;
+            document.querySelector(".lightbox").classList.add("active");
+        }
+        
+        function closeLightbox(){
+            document.querySelector(".lightbox").classList.remove("active");
+        }
+        </script>
+            
 </body>
 </html>
