@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>صمم لي | استوديو تصميم فاخر</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root{
+--bg:#050505;
+--card:#0c0c0c;
+--primary:#0aa6c7;
+--gold:#cfa44a;
+--text:#eaeaea;
+--muted:#9a9a9a;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+font-family:'Almarai',sans-serif;
+background:var(--bg);
+color:var(--text);
+line-height:1.8;
+}
+
+/* NAV */
+nav{
+position:fixed;
+top:0;width:100%;
+background:rgba(5,5,5,.85);
+backdrop-filter:blur(18px);
+z-index:1000;
+border-bottom:1px solid rgba(255,255,255,.05)
+}
+.nav{
+max-width:1300px;
+margin:auto;
+padding:18px 30px;
+display:flex;
+justify-content:space-between;
+align-items:center
+}
+.logo{
+font-size:1.9rem;
+font-weight:800;
+letter-spacing:1px
+}
+.logo span{color:var(--gold)}
+.nav a{
+color:#fff;
+text-decoration:none;
+margin-right:25px;
+font-size:.95rem
+}
+.nav a{
+position:relative;
+padding-bottom:5px;
+}
+
+.nav a::after{
+content:"";
+position:absolute;
+right:0;
+bottom:0;
+width:0;
+height:2px;
+background:var(--gold);
+transition:.4s;
+}
+
+.nav a:hover::after{
+width:100%;
+}
+
+/* HERO */
+.hero{
+min-height:100vh;
+display:flex;
+align-items:center;
+text-align:center;
+padding:120px 20px
+}
+.hero h1{
+font-size:4rem;
+font-weight:800;
+margin-bottom:30px;
+background:linear-gradient(#fff,#777);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent
+}
+.hero p{
+max-width:800px;
+margin:auto;
+color:var(--muted);
+font-size:1.2rem
+}
+
+/* SECTIONS */
+.section{
+padding:130px 30px;
+max-width:1300px;
+margin:auto
+}
+.title{
+text-align:center;
+margin-bottom:80px
+}
+.title h2{
+font-size:2.8rem;
+margin-bottom:15px
+}
+.title span{
+color:var(--gold);
+font-size:.9rem;
+letter-spacing:3px
+}
+
+/* ABOUT */
+.about{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:70px;
+align-items:center
+}
+.about p{color:var(--muted);font-size:1.05rem}
+
+/* SERVICES */
+.services{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:35px
+}
+.card{
+background:var(--card);
+padding:45px;
+border-radius:25px;
+border:1px solid rgba(255,255,255,.05);
+transition:.5s
+}
+.card:hover{
+transform:translateY(-12px);
+border-color:var(--gold)
+}
+.card i{
+font-size:2.5rem;
+color:var(--gold);
+margin-bottom:25px
+}
+
+/* PORTFOLIO */
+.portfolio{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:25px
+}
+.portfolio img{
+width:100%;
+height:420px;
+object-fit:cover;
+border-radius:22px;
+filter:grayscale(40%);
+transition:.6s
+}
+.portfolio img:hover{
+filter:grayscale(0);
+transform:scale(1.05)
+}
+
+/* CONTACT */
+.contact{
+text-align:center
+}
+.contact a{
+display:inline-block;
+margin:10px;
+padding:14px 30px;
+border-radius:40px;
+background:var(--card);
+color:#fff;
+text-decoration:none;
+border:1px solid rgba(255,255,255,.05)
+}
+.contact a:hover{
+background:var(--gold);
+color:#000
+}
+
+/* FOOTER */
+footer{
+padding:80px 20px;
+text-align:center;
+border-top:1px solid rgba(255,255,255,.05);
+color:#666
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+.hero h1{font-size:2.8rem}
+.about{grid-template-columns:1fr}
+}
+nav.scrolled{
+background:rgba(5,5,5,0.95);
+box-shadow:0 10px 40px rgba(0,0,0,.6);
+padding:10px 0;
+}
+.cta{
+padding:10px 28px;
+border-radius:30px;
+background:linear-gradient(135deg,var(--gold),#fff1c1);
+color:#000 !important;
+font-weight:700;
+transition:.4s;
+}
+/* ===== LUXURY PORTFOLIO ===== */
+.portfolio {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+}
+
+.portfolio-item {
+    position: relative;
+    border-radius: 26px;
+    overflow: hidden;
+    background: #0a0a0a;
+    box-shadow:
+        0 40px 80px rgba(0,0,0,.8),
+        inset 0 0 0 1px rgba(255,255,255,.05);
+}
+
+/* إضاءة جانبية */
+.portfolio-item::before {
+    content: "";
+    position: absolute;
+    top: -20%;
+    right: -30%;
+    width: 60%;
+    height: 140%;
+    background: linear-gradient(
+        120deg,
+        rgba(255,255,255,0.15),
+        transparent 60%
+    );
+    opacity: 0;
+    transition: .8s;
+}
+
+/* الصورة */
+.portfolio-item img {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    transition: 1s ease;
+    filter: brightness(85%) contrast(105%);
+}
+
+/* تأثير المرور */
+.portfolio-item:hover img {
+    transform: scale(1.08);
+    filter: brightness(100%) contrast(110%);
+}
+
+.portfolio-item:hover::before {
+    opacity: 1;
+}
+.lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(5,5,5,.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.lightbox.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.lightbox img {
+    max-width: 85%;
+    max-height: 85%;
+    border-radius: 20px;
+    box-shadow: 0 50px 120px rgba(0,0,0,.9);
+}
+
+/* ظل داخلي فاخر */
+.portfolio-item::after {
+    content:"";
+    position:absolute;
+    inset:0;
+    background: radial-gradient(
+        circle at bottom,
+        rgba(0,0,0,.6),
+        transparent 60%
+    );
+    pointer-events:none;
+}
+
+.cta:hover{
+transform:translateY(-3px);
+box-shadow:0 15px 40px rgba(207,164,74,.4);
+}
+
+
+</style>
+</head>
+
+<body>
+
+<nav>
+<div class="nav">
+<div class="logo">صمم <span>لي</span></div>
+
+<div>
+<a href="#about">من نحن</a>
+<a href="#services">خدماتنا</a>
+<a href="#portfolio">المعرض</a>
+<a href="#contact">تواصل</a>
+</div>
+</div>
+</nav>
+
+<section id="about" class="section">
+    <div class="title">
+        <span>ABOUT US</span>
+        <h2>من نحن</h2>
+    </div>
+
+    <div class="about">
+        <p>
+            <strong>صمم لي</strong> هو استوديو تصميم بصري متخصص في صناعة الهويات
+            الراقية وإدارة المحتوى الإبداعي. نؤمن أن التصميم الحقيقي
+            لا يُقاس بكثرة الألوان، بل بعمق الفكرة وأناقة التنفيذ.
+        </p>
+
+        <p>
+            نعمل بشغف على تحويل الأفكار إلى حضور بصري
+            يُعبّر عن شخصية العميل ويمنحه تميزًا واضحًا
+            في سوق مزدحم. كل مشروع نعمل عليه يُنفذ بعناية
+            عالية واهتمام بالتفاصيل.
+        </p>
+
+        <p>
+            رؤيتنا هي تقديم تصاميم
+            تترك أثرًا طويل الأمد،
+            وتعكس الاحتراف والذوق الرفيع
+            بأسلوب هادئ وفاخر.
+        </p>
+    </div>
+</section>
+
+
+<section id="about" class="section">
+<div class="title"><span>ABOUT</span><h2>من نحن</h2></div>
+<div class="about">
+<p>نؤمن أن التصميم ليس شكلاً بل إحساس، وأن الهوية القوية تُبنى بهدوء ودقة. نعمل مع عملائنا كشركاء لخلق حضور بصري يعكس قيمهم الحقيقية.</p>
+<p>خبرتنا تمتد في تصميم العلامات التجارية، إدارة المحتوى، والحملات البصرية الراقية.</p>
+</div>
+</section>
+
+<section id="services" class="section">
+<div class="title"><span>SERVICES</span><h2>خدماتنا</h2></div>
+<div class="services">
+
+    <div class="card">
+        <i class="fas fa-id-card"></i>
+        <h3>تصميم البطاقات والتهنئات</h3>
+        <p>
+            تصميم بطاقات أعمال، تهنئات، دعوات ومناسبات
+            بأسلوب أنيق يعكس الذوق والفخامة.
+        </p>
+    </div>
+
+    <div class="card">
+        <i class="fas fa-share-nodes"></i>
+        <h3>إدارة صفحات السوشيال ميديا</h3>
+        <p>
+            إدارة احترافية للمحتوى، جدولة المنشورات،
+            وبناء حضور رقمي قوي ومتناسق.
+        </p>
+    </div>
+
+    <div class="card">
+        <i class="fas fa-gem"></i>
+        <h3>الهوية البصرية</h3>
+        <p>
+            بناء هوية متكاملة تشمل الشعار،
+            الألوان، والخطوط لتعكس شخصية علامتك.
+        </p>
+    </div>
+
+    <div class="card">
+        <i class="fas fa-file-lines"></i>
+        <h3>البروشورات التعريفية</h3>
+        <p>
+            تصميم بروشورات احترافية
+            تعرّف بخدماتك ومنتجاتك بأسلوب جذاب.
+        </p>
+    </div>
+
+</div>
+
+</section>
+<section id="portfolio" class="section">
+    <div class="title">
+        <span>PORTFOLIO</span>
+        <h2>معرض الأعمال</h2>
+    </div>
+  
+    <div class="portfolio"></div>
+  </section>
+  
+  <script>
+  const images = [
+    "1.png","2.png","3.png","4.png","5.png","6.jpg","7.png","8.png","9.png",
+    "10.png","11.png","12.png","13.png","14.png","15.png","16.png","17.png",
+    "18.png","19.png","20.jpg","21.jpg","22.jpg","23.jpg","24.jpg","25.png",
+    "26.png","28.jpg","29.png"
+  ];
+  
+  const portfolioDiv = document.querySelector(".portfolio");
+  
+  images.forEach(img => {
+    const item = document.createElement("div");
+    item.classList.add("portfolio-item");
+    item.innerHTML = `<img src="${img}" alt="عمل تصميم فاخر" onclick="openLightbox('${img}')">`;
+    portfolioDiv.appendChild(item);
+  });
+  </script>
+  
+<!-- 
+<section id="portfolio" class="section">
+    <div class="title">
+        <span>PORTFOLIO</span>
+        <h2>معرض الأعمال</h2>
+    </div>
+
+    <div class="portfolio">
+        <script>
+            for (let i = 1; i <= 28; i++) {
+                document.write(`
+                    <div class="portfolio-item">
+                        <img src="${i}.jpg" alt="عمل تصميم فاخر" onclick="openLightbox('${i}.jpg')">
+                    </div>
+                `);
+            }
+        </script>
+    </div>
+</section> -->
+
+
+
+<section id="contact" class="section contact">
+    <div class="title">
+        <span>CONTACT</span>
+        <h2>تواصل معنا</h2>
+    </div>
+
+    <p style="max-width:650px;margin:0 auto 40px;color:#9a9a9a;font-size:1.05rem">
+        يسعدنا التواصل معك لمناقشة أفكارك وتحويلها إلى
+        هوية بصرية أنيقة تليق بطموحك.
+    </p>
+
+    <a href="https://wa.me/78500363" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+        واتساب
+    </a>
+
+    <a href="https://t.me/the_boss711" target="_blank">
+        <i class="fab fa-telegram"></i>
+        تليجرام
+    </a>
+
+    <a href="https://www.instagram.com/bo.ss1.1" target="_blank">
+        <i class="fab fa-instagram"></i>
+        إنستقرام
+    </a>
+
+    <a href="tel:78500363">
+        <i class="fas fa-phone"></i>
+        اتصال هاتفي
+    </a>
+</section>
+
+
+<footer>
+© 2026 صمم لي — تصميم يليق بك
+</footer>
+<script>
+    const nav = document.querySelector("nav");
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 80) {
+        nav.classList.add("scrolled");
+      } else {
+        nav.classList.remove("scrolled");
+      }
+    });
+    </script>
+    <div class="lightbox" onclick="closeLightbox()">
+        <img id="lightbox-img">
+    </div>
+   
+        
+    <script>
+        function openLightbox(src){
+            document.getElementById("lightbox-img").src = src;
+            document.querySelector(".lightbox").classList.add("active");
+        }
+        
+        function closeLightbox(){
+            document.querySelector(".lightbox").classList.remove("active");
+        }
+        </script>
+            
+</body>
+</html>
